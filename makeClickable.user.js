@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         Make correct locations clickable.
-// @version      1.0
+// @name         Make correct locations clickable. v1.5
+// @version      1.5
 // @description  Make the correct locations clickable on end of round screens.
 // @author       echandler
 // @include      https://*geoguessr.com/*
@@ -60,13 +60,16 @@
 
     function setMapListener(map){
         let div = map.getDiv();
-        div.addEventListener('auxclick', function(e){
-            if (!markers.length){
-                setMarkers(map);
-                return;
-            }
-            removeMarkers(map);
-        }, false);
+
+        div.addEventListener('mousedown', function(e){
+           if (e.which === 2){
+               if (!markers.length){
+                   setMarkers(map);
+                   return;
+               }
+               removeMarkers(map);
+           }
+       });
     }
 
     function setMarkers(map){
